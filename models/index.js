@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 
-var file = 'users';
+var file = 'myDatabase.sqlite3';
 var db = new sqlite3.Database(file);
 
 db.serialize(function() {

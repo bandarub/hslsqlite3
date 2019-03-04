@@ -3,7 +3,7 @@ const router = express.Router();
 const request = require('request');
 const sqlite3 = require('sqlite3').verbose();
 
-var file = 'users';
+var file = 'myDatabase.sqlite3';
 var db = new sqlite3.Database(file);
 
 

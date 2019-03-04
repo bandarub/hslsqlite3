@@ -16,7 +16,7 @@ app.use('/api', apiRouter);
 app.use('/', router);
 
 //Connecting to database
-var db = new sqlite3.Database('users', err => {
+var db = new sqlite3.Database('myDatabase.sqlite3', err => {
 	if (err) {
 		return console.error(err.message);
 	}
