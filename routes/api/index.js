@@ -30,12 +30,18 @@ router.get('/', function(req, res) {
 
 router.get('/users', function(req, res) {
 	db.all('SELECT ID, userName,email,password FROM user', function(err, rows) {
+		if (err) {
+			res.send({ error: 'Cannot retreive users API' });
+		}
 		res.send(JSON.parse(JSON.stringify(rows)));
 	});
 });
 
 router.get('/orders', function(req, res) {
 	db.all('SELECT ID, ticketId,displayName, description, user FROM orderList', function(err, rows) {
+		if (err) {
+			res.send({ error: 'Cannot retreive orders API' });
+		}
 		res.send(JSON.parse(JSON.stringify(rows)));
 	});
 });

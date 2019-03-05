@@ -11,6 +11,9 @@ var db = new sqlite3.Database(file);
 router.get('/', function(req, res) {
 	const stmt = 'SELECT id, displayName, description FROM ticketTypes';
 	db.all(stmt, function(err, row) {
+		if(err){
+			res.send({error:"Cannot retreive tickeTypes"})
+		}
 		res.send(row);
 	});
 });
@@ -33,6 +36,9 @@ router.get('/user/:id', function(req, res) {
 	const id = req.params.id;
 	const stmt = ' SELECT * FROM orderList WHERE user = ?';
 	db.all(stmt, id, function(err, row) {
+		if(err){
+			res.send({error:"Cannot get user details"})
+		}
 		res.send({ orderList: row });
 	});
 });
@@ -42,7 +48,9 @@ router.post('/user/:id/order', function(req, res) {
 	const id = req.params.id;
 	const { ticketId } = req.body;
 	db.all('SELECT * FROM ticketTypes WHERE id = ?', ticketId, function(err, row) {
-		console.log(row);
+		if(err){
+			res.send({error:"Cannot Order Ticket"})
+		}
 		let stmt = db.prepare('INSERT INTO orderList (ticketId,displayName, description, user) VALUES (?, ?, ? ,?)');
 		stmt.run(row[0].ID, row[0].displayName, row[0].description, id);
 		stmt.finalize();
